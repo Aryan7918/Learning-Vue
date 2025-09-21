@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue - Lists Conditionals and Computed Properties</title>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="h-screen grid place-items-center align-items-center">
+    <div id="app" class="p-6 bg-gray-100 rounded-xl shadow-lg" >
+        <section v-show="inProgressAssignments.length"  class="mb-8">
+            <h2 class="font-bold mb-2">In Progess Assignments</h2>
+
+            <ul>
+                <li v-for="assignment in inProgressAssignments" :key="assignment.id">
+                    <label>{{ assignment.name }}
+                        <input type="checkbox" v-model="assignment.complete">
+                    </label>
+                </li>
+            </ul>
+        </section>
+        
+        <section v-show="completedAssignments.length">
+            <h2 class="font-bold mb-2">Completed Assignments</h2>
+
+            <ul>
+                <li v-for="assignment in completedAssignments"  :key="assignment.id">
+                    <label>{{ assignment.name }}
+                        <input type="checkbox" v-model="assignment.complete">
+                    </label>
+                </li>
+            </ul>
+        </section>
+    </div>
+    <script>
+        let app = {
+            data() {
+                return {
+                    assignments: [
+                        { id:1, name:'Finish Project', complete: false},
+                        { id:2, name:'Read chapter 10', complete: false},
+                        { id:3, name:'Turn in homework', complete: false}
+                    ] 
+                }
+            },
+            computed:{
+                inProgressAssignments(){
+                    return this.assignments.filter(assignment => ! assignment.complete);
+                },
+
+                completedAssignments(){
+                    return this.assignments.filter(assignment => assignment.complete);
+                }
+            }
+        }
+        Vue.createApp(app).mount("#app");
+        // v-for -> loops through items (assignment in assignments.filter(...)).
+        // :key -> unique identifier for Vue’s rendering optimization.
+        // v-model -> two-way data binding (checkbox ↔ assignment.complete).
+        // v-show -> conditionally shows/hides sections (based on completed vs incomplete assignments).
+    </script>
+</body>
+
+</html>
