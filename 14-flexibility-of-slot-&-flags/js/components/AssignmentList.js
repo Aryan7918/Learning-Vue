@@ -1,18 +1,22 @@
 import Assignment from "./Assignment.js";
 import AssignmentTags from "./AssignmentTags.js";
+import Panel from "./Panel.js";
 
 export default{
-    components:{ Assignment, AssignmentTags },
+    components:{ Assignment, AssignmentTags, Panel },
     template: `
-        <section v-show="assignments.length"  class="w-60">
+        <Panel v-show="assignments.length"  class="w-60">
             <div class="flex justify-between item-start">
-                <h2 class="font-bold mb-2">{{ title }} ({{ assignments.length }})</h2>
-                <button v-show="canToggle" @click="$emit('toggle')"> &times; </button>
+                <h2 class="font-bold mb-2">{{ title }} 
+                    <span>({{ assignments.length }})</span>
+                </h2>
+
+                <button v-show="canToggle" @click="$emit('toggle')"> x </button>
             </div>
             <assignment-tags 
                 :initial-tags="assignments.map(a => a.tag)"
                 v-model:currentTag = "currentTag"
-                />
+            />
 
             <ul class="border border-gray-600 divide-y divide-gray-600 mt-4">
                 <assignment
@@ -22,7 +26,9 @@ export default{
                 />
             </ul>
             <slot></slot>
-        </section>
+
+            <template #footer> my footer goes here. </template>
+        </panel>
     `,
     props:{
         assignments: Array,

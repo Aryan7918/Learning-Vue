@@ -2,7 +2,7 @@ export default{
     template:`
         <form @submit.prevent = "add">
             <div class="border text-black flex">
-                <input v-model="newAssignment" class="p-2" placeholder="New assignment..."/>
+                <input v-model="newAssignment" class="py-2 w-40" placeholder="New assignment..."/>
                 <button class="bg-white p-2 border-l" type="submit">Add</button>
             </div>
         </form>
